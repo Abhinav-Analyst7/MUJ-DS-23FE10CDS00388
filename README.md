@@ -68,7 +68,7 @@ From the project root, create and activate a virtual environment, then install t
 ```powershell
 py -m venv .venv
 .\.venv\Scripts\Activate.ps1
-py -m pip install -r requirements.txt
+python -m pip install -r requirements.txt
 ```
 
 The first backend startup may download the `all-MiniLM-L6-v2` model and require an internet connection.
@@ -77,7 +77,7 @@ The first backend startup may download the `all-MiniLM-L6-v2` model and require 
 From the project root:
 
 ```powershell
-py -m uvicorn main:app --reload
+python -m uvicorn main:app --reload
 ```
 
 The API is available at `http://127.0.0.1:8000`; interactive API documentation is at `http://127.0.0.1:8000/docs`.
@@ -106,22 +106,25 @@ Open the local URL printed by Vite (typically `http://localhost:5173`). The fron
 ---
 
 ## Matching Workflow
-```text
-Resume (PDF/DOCX)             Job Description
-        │                            │
-        ▼                            ▼
-   Text extraction              Text input
-        │                            │
-        └─────────────┬──────────────┘
-                      ▼
-             Semantic similarity
-             Keyword gap analysis
-                      │
-                      ▼
-          Score, matched/missing terms,
-              or ranked leaderboard
 ```
-
-In `main.py`, the match score is based on sentence-embedding cosine similarity. Keyword matches and gaps are returned as separate explanatory results, they are not currently combined into the score.
+ Resume (PDF/DOCX/TXT)          Job Description (TXT)
+          │                               │
+          └──────────────┬────────────────┘
+                         ▼
+                 Text extraction
+                         ▼
+                 Cleaning / preprocessing
+                         │
+        ┌────────────────┼─────────────────┐
+        ▼                ▼                 ▼
+   TF-IDF cosine    Skill matching    Semantic similarity
+   (keyword)        (skill overlap)   (sentence embeddings)
+        │                │                 │
+        └────────────────┼─────────────────┘
+                         ▼
+                Weighted hybrid score
+                         ▼
+        Score + matched skills + missing skills
+```
 
 
