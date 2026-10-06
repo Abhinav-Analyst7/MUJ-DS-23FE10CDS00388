@@ -34,18 +34,6 @@ The current implementation includes:
 
 ---
 
-## Model Performance Benchmarks
-
-This repository does not currently include a documented benchmark dataset, evaluation script, or verified performance measurements. Results should be measured on a labeled test set before reporting accuracy or other classification metrics.
-
-| Component | Current implementation | Benchmark |
-| :--- | :--- | :---: |
-| **Semantic similarity** | Sentence embeddings from `all-MiniLM-L6-v2` | Not evaluated |
-| **Keyword gap analysis** | Token overlap between resume and job description | Not evaluated |
-| **Batch ranking** | Sorts resumes by the API match score | Not evaluated |
-
----
-
 ## Repository Structure
 ```text
 .
